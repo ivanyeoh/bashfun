@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+export COMMAND_KEYS=()
+export COMMAND_STRS=()
+
+function register_cmd() {
+  COMMAND_KEYS+=("$1")
+  COMMAND_STRS+=("$2")
+}
+
+function exec_cmd() {
+  local INDEX=0
+  for KEY in ${COMMAND_KEYS[@]}; do
+    if [ "$KEY" == "$1" ]; then
+      "$COMMAND_STRS[$INDEX]"
+      exit 0
+    fi
+    ((INDEX++))
+  done
+
+  show_usage "$1"
+}
+
+function show_usage() {
+  local CMD=$1
+
+  if [ -n "$CMD" ]; then
+    echo "Error: $CMD not a valid command"
+  fi
+
+  echo "Usage: ${0##*/} <command>
+commands:"
+
+  local INDEX=0
+  for KEY in ${COMMAND_KEYS[@]}; do
+    printf '%-8s%-60s\n' "  ${COMMAND_KEYS[$INDEX]}" "${COMMAND_STRS[$INDEX]}"
+    ((INDEX++))
+  done
+}
