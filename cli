@@ -3,12 +3,12 @@
 export COMMAND_KEYS=()
 export COMMAND_STRS=()
 
-function register_cmd() {
+function reg_cmd() {
   COMMAND_KEYS+=("$1")
   COMMAND_STRS+=("$2")
 }
 
-function exec_cmd() {
+function run_cmd() {
   local INDEX=0
   for KEY in ${COMMAND_KEYS[@]}; do
     if [ "$KEY" == "$1" ]; then
