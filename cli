@@ -29,7 +29,7 @@ function show_usage() {
   fi
 
   echo "Usage: ${0##*/} <command>
-commands:"
+Commands:"
 
   local INDEX=0
   for KEY in ${COMMAND_KEYS[@]}; do
