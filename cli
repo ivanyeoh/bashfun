@@ -5,14 +5,16 @@ export COMMAND_STRS=()
 
 function reg_cmd() {
   COMMAND_KEYS+=("$1")
-  COMMAND_STRS+=("$2")
+  shift
+  cmd="$@"
+  COMMAND_STRS+=("$cmd")
 }
 
 function run_cmd() {
   local INDEX=0
   for KEY in ${COMMAND_KEYS[@]}; do
     if [ "$KEY" == "$1" ]; then
-      "$COMMAND_STRS[$INDEX]"
+      eval "${COMMAND_STRS[$INDEX]}"
       exit 0
     fi
     ((INDEX++))
